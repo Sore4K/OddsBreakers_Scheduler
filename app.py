@@ -10,8 +10,8 @@ import os
 st.set_page_config(page_title="D&D Scheduler", page_icon="🎲", layout="wide")
 
 st.title("OddsBreaker Party Scheduler")
-st.markdown("Scegli il tuo nome e usa gli slider per indicare il valore, per favore indica 3 slot preferiti e 3 slot in cui puoi organizzarti")
-st.markdown("Inserisci la tua disponibilità. **0.0** = No, **0.5** = Posso Organizzarmi, **1.0** = Slot Preferito")
+st.markdown("Scegli il tuo nome dal menù laterale e usa gli slider per indicare il valore, per favore indica 3 slot preferiti e 3 slot in cui puoi organizzarti")
+st.markdown("Legenda Valori: **0.0** = Non Disponibile, **0.5** = Posso Organizzarmi, **1.0** = Slot Preferito")
 
 # ==========================================
 # 2. GESTIONE DATI (Database CSV simulato)
@@ -91,14 +91,14 @@ best_score = df_calc['Score'].max()
 col1, col2 = st.columns([2, 1])
 
 with col1:
-    st.subheader("📊 Mappa Termica del Party")
+    st.subheader("HeatMap Disponibilità")
     # Heatmap
     fig1, ax1 = plt.subplots(figsize=(10, 6))
     sns.heatmap(df, annot=True, cmap="RdYlGn", vmin=0, vmax=1, cbar=False, linewidths=.5, ax=ax1)
     st.pyplot(fig1)
 
 with col2:
-    st.subheader("🏆 Classifica Slot")
+    st.subheader("Best Slot")
     # Bar Chart
     fig2, ax2 = plt.subplots(figsize=(5, 6))
     colors = ['grey' if s < QUORUM else 'green' for s in df_calc['Score']]
@@ -113,7 +113,7 @@ kpi1, kpi2, kpi3 = st.columns(3)
 kpi1.metric("Miglior Giorno", best_slot)
 kpi1.metric("Score", f"{best_score:.1f}")
 
-status_master = "✅ Presente" if df.loc[best_slot, MASTER_NAME] > 0 else "❌ ASSENTE"
+status_master = "✅" if df.loc[best_slot, MASTER_NAME] > 0 else "❌"
 kpi2.metric("Stato Master", status_master)
 
 # Chi manca nel giorno migliore?
@@ -123,4 +123,5 @@ for p in PLAYERS:
         assenti.append(p)
 
 kpi3.write(f"**Assenti nel giorno migliore:** {', '.join(assenti) if assenti else 'Nessuno!'}")
+
 
