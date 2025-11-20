@@ -9,7 +9,8 @@ import os
 # ==========================================
 st.set_page_config(page_title="D&D Scheduler", page_icon="🎲", layout="wide")
 
-st.title("🎲 D&D Party Scheduler")
+st.title("OddsBreaker Party Scheduler")
+st.markdown("Scegli il tuo nome e usa gli slider per indicare il valore, per favore indica 3 slot preferiti e 3 slot in cui puoi organizzarti")
 st.markdown("Inserisci la tua disponibilità. **0.0** = No, **0.5** = Posso Organizzarmi, **1.0** = Slot Preferito")
 
 # ==========================================
@@ -122,3 +123,4 @@ for p in PLAYERS:
         assenti.append(p)
 
 kpi3.write(f"**Assenti nel giorno migliore:** {', '.join(assenti) if assenti else 'Nessuno!'}")
+
