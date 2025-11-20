@@ -10,7 +10,7 @@ import os
 st.set_page_config(page_title="D&D Scheduler", page_icon="🎲", layout="wide")
 
 st.title("🎲 D&D Party Scheduler")
-st.markdown("Inserisci la tua disponibilità. **0.0** = No, **0.5** = Forse, **1.0** = Sì")
+st.markdown("Inserisci la tua disponibilità. **0.0** = No, **0.5** = Posso Organizzarmi, **1.0** = Slot Preferito")
 
 # ==========================================
 # 2. GESTIONE DATI (Database CSV simulato)
@@ -120,4 +120,5 @@ assenti = []
 for p in PLAYERS:
     if df.loc[best_slot, p] == 0:
         assenti.append(p)
+
 kpi3.write(f"**Assenti nel giorno migliore:** {', '.join(assenti) if assenti else 'Nessuno!'}")
